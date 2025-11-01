@@ -1,0 +1,612 @@
+--[[
+	CardDatabase.lua
+	Celestial Alchemists - Card Data Module
+	
+	This module contains all card data for the game including:
+	- Tier 1, 2, 3 Spell Cards
+	- Celestial Noble tiles
+	- Helper functions for card management
+]]
+
+local CardDatabase = {}
+
+-- ========================================
+-- ESSENCE TYPES (for reference)
+-- ========================================
+CardDatabase.EssenceTypes = {
+	"Aether",  -- White/Clear
+	"Terra",   -- Green
+	"Aqua",    -- Blue
+	"Ignis",   -- Red
+	"Umbra"    -- Black
+}
+
+-- ========================================
+-- TIER 1 CARDS (Apprentice Level)
+-- ========================================
+-- Focus: Engine building, low cost, mostly 0 points
+CardDatabase.Tier1 = {
+	-- Pure single bonus cards (0 points, cheap)
+	{
+		id = "T1_001",
+		name = "Whisper of Aether",
+		tier = 1,
+		points = 0,
+		bonus = "Aether",
+		cost = {Aether = 0, Terra = 1, Aqua = 1, Ignis = 1, Umbra = 1}
+	},
+	{
+		id = "T1_002",
+		name = "Earth's Embrace",
+		tier = 1,
+		points = 0,
+		bonus = "Terra",
+		cost = {Aether = 1, Terra = 0, Aqua = 1, Ignis = 1, Umbra = 1}
+	},
+	{
+		id = "T1_003",
+		name = "Tide's Caress",
+		tier = 1,
+		points = 0,
+		bonus = "Aqua",
+		cost = {Aether = 1, Terra = 1, Aqua = 0, Ignis = 1, Umbra = 1}
+	},
+	{
+		id = "T1_004",
+		name = "Flame Flicker",
+		tier = 1,
+		points = 0,
+		bonus = "Ignis",
+		cost = {Aether = 1, Terra = 1, Aqua = 1, Ignis = 0, Umbra = 1}
+	},
+	{
+		id = "T1_005",
+		name = "Shadow Veil",
+		tier = 1,
+		points = 0,
+		bonus = "Umbra",
+		cost = {Aether = 1, Terra = 1, Aqua = 1, Ignis = 1, Umbra = 0}
+	},
+	
+	-- Focused element cards (0 points, specialized)
+	{
+		id = "T1_006",
+		name = "Crystal Spire",
+		tier = 1,
+		points = 0,
+		bonus = "Aether",
+		cost = {Aether = 0, Terra = 3, Aqua = 0, Ignis = 0, Umbra = 0}
+	},
+	{
+		id = "T1_007",
+		name = "Grove Guardian",
+		tier = 1,
+		points = 0,
+		bonus = "Terra",
+		cost = {Aether = 0, Terra = 0, Aqua = 0, Ignis = 3, Umbra = 0}
+	},
+	{
+		id = "T1_008",
+		name = "Wellspring",
+		tier = 1,
+		points = 0,
+		bonus = "Aqua",
+		cost = {Aether = 0, Terra = 0, Aqua = 0, Ignis = 0, Umbra = 3}
+	},
+	{
+		id = "T1_009",
+		name = "Emberforge",
+		tier = 1,
+		points = 0,
+		bonus = "Ignis",
+		cost = {Aether = 3, Terra = 0, Aqua = 0, Ignis = 0, Umbra = 0}
+	},
+	{
+		id = "T1_010",
+		name = "Void Shard",
+		tier = 1,
+		points = 0,
+		bonus = "Umbra",
+		cost = {Aether = 0, Terra = 0, Aqua = 3, Ignis = 0, Umbra = 0}
+	},
+	
+	-- 1 point cards (slightly more expensive)
+	{
+		id = "T1_011",
+		name = "Radiant Beacon",
+		tier = 1,
+		points = 1,
+		bonus = "Aether",
+		cost = {Aether = 0, Terra = 0, Aqua = 2, Ignis = 0, Umbra = 2}
+	},
+	{
+		id = "T1_012",
+		name = "Living Roots",
+		tier = 1,
+		points = 1,
+		bonus = "Terra",
+		cost = {Aether = 2, Terra = 0, Aqua = 0, Ignis = 0, Umbra = 2}
+	},
+	{
+		id = "T1_013",
+		name = "Frost Crown",
+		tier = 1,
+		points = 1,
+		bonus = "Aqua",
+		cost = {Aether = 0, Terra = 2, Aqua = 0, Ignis = 2, Umbra = 0}
+	},
+	{
+		id = "T1_014",
+		name = "Pyroclasm",
+		tier = 1,
+		points = 1,
+		bonus = "Ignis",
+		cost = {Aether = 0, Terra = 0, Aqua = 2, Ignis = 0, Umbra = 2}
+	},
+	{
+		id = "T1_015",
+		name = "Nightfall",
+		tier = 1,
+		points = 1,
+		bonus = "Umbra",
+		cost = {Aether = 2, Terra = 2, Aqua = 0, Ignis = 0, Umbra = 0}
+	},
+	
+	-- Additional variety cards
+	{
+		id = "T1_016",
+		name = "Starlight Prism",
+		tier = 1,
+		points = 0,
+		bonus = "Aether",
+		cost = {Aether = 0, Terra = 2, Aqua = 1, Ignis = 0, Umbra = 0}
+	},
+	{
+		id = "T1_017",
+		name = "Thornwall",
+		tier = 1,
+		points = 0,
+		bonus = "Terra",
+		cost = {Aether = 0, Terra = 0, Aqua = 0, Ignis = 1, Umbra = 2}
+	},
+	{
+		id = "T1_018",
+		name = "Moonwell",
+		tier = 1,
+		points = 0,
+		bonus = "Aqua",
+		cost = {Aether = 1, Terra = 0, Aqua = 0, Ignis = 0, Umbra = 2}
+	},
+	{
+		id = "T1_019",
+		name = "Inferno Heart",
+		tier = 1,
+		points = 0,
+		bonus = "Ignis",
+		cost = {Aether = 2, Terra = 0, Aqua = 1, Ignis = 0, Umbra = 0}
+	},
+	{
+		id = "T1_020",
+		name = "Eclipse Stone",
+		tier = 1,
+		points = 0,
+		bonus = "Umbra",
+		cost = {Aether = 0, Terra = 1, Aqua = 2, Ignis = 0, Umbra = 0}
+	}
+}
+
+-- ========================================
+-- TIER 2 CARDS (Adept Level)
+-- ========================================
+-- Focus: Mid-game power, 1-3 points, moderate cost
+CardDatabase.Tier2 = {
+	-- 1 point cards
+	{
+		id = "T2_001",
+		name = "Celestial Observatory",
+		tier = 2,
+		points = 1,
+		bonus = "Aether",
+		cost = {Aether = 0, Terra = 2, Aqua = 2, Ignis = 3, Umbra = 0}
+	},
+	{
+		id = "T2_002",
+		name = "Ancient Grove",
+		tier = 2,
+		points = 1,
+		bonus = "Terra",
+		cost = {Aether = 3, Terra = 0, Aqua = 0, Ignis = 2, Umbra = 2}
+	},
+	{
+		id = "T2_003",
+		name = "Glacier Sanctum",
+		tier = 2,
+		points = 1,
+		bonus = "Aqua",
+		cost = {Aether = 0, Terra = 3, Aqua = 0, Ignis = 2, Umbra = 2}
+	},
+	{
+		id = "T2_004",
+		name = "Volcano Shrine",
+		tier = 2,
+		points = 1,
+		bonus = "Ignis",
+		cost = {Aether = 2, Terra = 2, Aqua = 3, Ignis = 0, Umbra = 0}
+	},
+	{
+		id = "T2_005",
+		name = "Void Temple",
+		tier = 2,
+		points = 1,
+		bonus = "Umbra",
+		cost = {Aether = 2, Terra = 0, Aqua = 2, Ignis = 0, Umbra = 3}
+	},
+	
+	-- 2 point cards
+	{
+		id = "T2_006",
+		name = "Astral Academy",
+		tier = 2,
+		points = 2,
+		bonus = "Aether",
+		cost = {Aether = 0, Terra = 1, Aqua = 4, Ignis = 2, Umbra = 0}
+	},
+	{
+		id = "T2_007",
+		name = "Primordial Garden",
+		tier = 2,
+		points = 2,
+		bonus = "Terra",
+		cost = {Aether = 0, Terra = 0, Aqua = 1, Ignis = 4, Umbra = 2}
+	},
+	{
+		id = "T2_008",
+		name = "Tidal Palace",
+		tier = 2,
+		points = 2,
+		bonus = "Aqua",
+		cost = {Aether = 2, Terra = 0, Aqua = 0, Ignis = 1, Umbra = 4}
+	},
+	{
+		id = "T2_009",
+		name = "Phoenix Roost",
+		tier = 2,
+		points = 2,
+		bonus = "Ignis",
+		cost = {Aether = 4, Terra = 2, Aqua = 0, Ignis = 0, Umbra = 1}
+	},
+	{
+		id = "T2_010",
+		name = "Shadow Citadel",
+		tier = 2,
+		points = 2,
+		bonus = "Umbra",
+		cost = {Aether = 1, Terra = 4, Aqua = 2, Ignis = 0, Umbra = 0}
+	},
+	
+	-- 3 point cards (gateway to late game)
+	{
+		id = "T2_011",
+		name = "Starforge Sanctum",
+		tier = 2,
+		points = 3,
+		bonus = "Aether",
+		cost = {Aether = 0, Terra = 0, Aqua = 0, Ignis = 5, Umbra = 3}
+	},
+	{
+		id = "T2_012",
+		name = "World Tree Nexus",
+		tier = 2,
+		points = 3,
+		bonus = "Terra",
+		cost = {Aether = 3, Terra = 0, Aqua = 5, Ignis = 0, Umbra = 0}
+	},
+	{
+		id = "T2_013",
+		name = "Abyssal Cathedral",
+		tier = 2,
+		points = 3,
+		bonus = "Aqua",
+		cost = {Aether = 0, Terra = 3, Aqua = 0, Ignis = 0, Umbra = 5}
+	},
+	{
+		id = "T2_014",
+		name = "Eternal Inferno",
+		tier = 2,
+		points = 3,
+		bonus = "Ignis",
+		cost = {Aether = 5, Terra = 0, Aqua = 0, Ignis = 0, Umbra = 3}
+	},
+	{
+		id = "T2_015",
+		name = "Oblivion Gate",
+		tier = 2,
+		points = 3,
+		bonus = "Umbra",
+		cost = {Aether = 0, Terra = 5, Aqua = 3, Ignis = 0, Umbra = 0}
+	}
+}
+
+-- ========================================
+-- TIER 3 CARDS (Master Level)
+-- ========================================
+-- Focus: End-game, 3-5 points, expensive
+CardDatabase.Tier3 = {
+	-- 3 point cards
+	{
+		id = "T3_001",
+		name = "Heaven's Vault",
+		tier = 3,
+		points = 3,
+		bonus = "Aether",
+		cost = {Aether = 0, Terra = 3, Aqua = 3, Ignis = 5, Umbra = 3}
+	},
+	{
+		id = "T3_002",
+		name = "Gaia's Throne",
+		tier = 3,
+		points = 3,
+		bonus = "Terra",
+		cost = {Aether = 3, Terra = 0, Aqua = 5, Ignis = 3, Umbra = 3}
+	},
+	{
+		id = "T3_003",
+		name = "Ocean's Crown",
+		tier = 3,
+		points = 3,
+		bonus = "Aqua",
+		cost = {Aether = 3, Terra = 3, Aqua = 0, Ignis = 3, Umbra = 5}
+	},
+	{
+		id = "T3_004",
+		name = "Solar Apex",
+		tier = 3,
+		points = 3,
+		bonus = "Ignis",
+		cost = {Aether = 5, Terra = 3, Aqua = 3, Ignis = 0, Umbra = 3}
+	},
+	{
+		id = "T3_005",
+		name = "Void Emperor",
+		tier = 3,
+		points = 3,
+		bonus = "Umbra",
+		cost = {Aether = 3, Terra = 5, Aqua = 3, Ignis = 3, Umbra = 0}
+	},
+	
+	-- 4 point cards
+	{
+		id = "T3_006",
+		name = "Cosmic Pinnacle",
+		tier = 3,
+		points = 4,
+		bonus = "Aether",
+		cost = {Aether = 0, Terra = 0, Aqua = 0, Ignis = 7, Umbra = 0}
+	},
+	{
+		id = "T3_007",
+		name = "Titan's Domain",
+		tier = 3,
+		points = 4,
+		bonus = "Terra",
+		cost = {Aether = 7, Terra = 0, Aqua = 0, Ignis = 0, Umbra = 0}
+	},
+	{
+		id = "T3_008",
+		name = "Leviathan's Depths",
+		tier = 3,
+		points = 4,
+		bonus = "Aqua",
+		cost = {Aether = 0, Terra = 7, Aqua = 0, Ignis = 0, Umbra = 0}
+	},
+	{
+		id = "T3_009",
+		name = "Dragon's Fury",
+		tier = 3,
+		points = 4,
+		bonus = "Ignis",
+		cost = {Aether = 0, Terra = 0, Aqua = 7, Ignis = 0, Umbra = 0}
+	},
+	{
+		id = "T3_010",
+		name = "Eternal Darkness",
+		tier = 3,
+		points = 4,
+		bonus = "Umbra",
+		cost = {Aether = 0, Terra = 0, Aqua = 0, Ignis = 0, Umbra = 7}
+	},
+	
+	-- 5 point cards (game enders)
+	{
+		id = "T3_011",
+		name = "Celestial Ascension",
+		tier = 3,
+		points = 5,
+		bonus = "Aether",
+		cost = {Aether = 0, Terra = 3, Aqua = 7, Ignis = 0, Umbra = 0}
+	},
+	{
+		id = "T3_012",
+		name = "Primal Genesis",
+		tier = 3,
+		points = 5,
+		bonus = "Terra",
+		cost = {Aether = 0, Terra = 0, Aqua = 3, Ignis = 7, Umbra = 0}
+	},
+	{
+		id = "T3_013",
+		name = "Maelstrom Eternal",
+		tier = 3,
+		points = 5,
+		bonus = "Aqua",
+		cost = {Aether = 0, Terra = 0, Aqua = 0, Ignis = 3, Umbra = 7}
+	},
+	{
+		id = "T3_014",
+		name = "Supernova Core",
+		tier = 3,
+		points = 5,
+		bonus = "Ignis",
+		cost = {Aether = 7, Terra = 0, Aqua = 0, Ignis = 0, Umbra = 3}
+	},
+	{
+		id = "T3_015",
+		name = "Reality's End",
+		tier = 3,
+		points = 5,
+		bonus = "Umbra",
+		cost = {Aether = 3, Terra = 0, Aqua = 0, Ignis = 0, Umbra = 7}
+	}
+}
+
+-- ========================================
+-- CELESTIAL NOBLES
+-- ========================================
+-- Each provides 3 points and requires specific bonuses
+CardDatabase.Nobles = {
+	{
+		id = "N_001",
+		name = "Leo, the Starborn Lion",
+		points = 3,
+		requirements = {Ignis = 4, Umbra = 4}
+	},
+	{
+		id = "N_002",
+		name = "Aquarius, the Water Bearer",
+		points = 3,
+		requirements = {Aqua = 4, Aether = 4}
+	},
+	{
+		id = "N_003",
+		name = "Taurus, the Earth Titan",
+		points = 3,
+		requirements = {Terra = 4, Aqua = 4}
+	},
+	{
+		id = "N_004",
+		name = "Phoenix, the Eternal Flame",
+		points = 3,
+		requirements = {Ignis = 4, Aether = 4}
+	},
+	{
+		id = "N_005",
+		name = "Serpens, the Shadow Wyrm",
+		points = 3,
+		requirements = {Umbra = 4, Terra = 4}
+	},
+	{
+		id = "N_006",
+		name = "Draco, the Sky Guardian",
+		points = 3,
+		requirements = {Aether = 3, Aqua = 3, Terra = 3}
+	},
+	{
+		id = "N_007",
+		name = "Hydra, the Many-Headed",
+		points = 3,
+		requirements = {Aqua = 3, Ignis = 3, Umbra = 3}
+	},
+	{
+		id = "N_008",
+		name = "Chimera, the Tri-Element",
+		points = 3,
+		requirements = {Terra = 3, Ignis = 3, Aether = 3}
+	}
+}
+
+-- ========================================
+-- HELPER FUNCTIONS
+-- ========================================
+
+-- Get all cards of a specific tier
+function CardDatabase.GetTierCards(tier)
+	if tier == 1 then
+		return CardDatabase.Tier1
+	elseif tier == 2 then
+		return CardDatabase.Tier2
+	elseif tier == 3 then
+		return CardDatabase.Tier3
+	end
+	return {}
+end
+
+-- Get a random shuffled deck for a tier
+function CardDatabase.GetShuffledDeck(tier)
+	local cards = CardDatabase.GetTierCards(tier)
+	local shuffled = {}
+	
+	-- Copy cards
+	for _, card in ipairs(cards) do
+		table.insert(shuffled, card)
+	end
+	
+	-- Shuffle using Fisher-Yates
+	for i = #shuffled, 2, -1 do
+		local j = math.random(i)
+		shuffled[i], shuffled[j] = shuffled[j], shuffled[i]
+	end
+	
+	return shuffled
+end
+
+-- Get random nobles for a game
+function CardDatabase.GetRandomNobles(count)
+	local nobles = {}
+	local available = {}
+	
+	-- Copy all nobles
+	for _, noble in ipairs(CardDatabase.Nobles) do
+		table.insert(available, noble)
+	end
+	
+	-- Shuffle
+	for i = #available, 2, -1 do
+		local j = math.random(i)
+		available[i], available[j] = available[j], available[i]
+	end
+	
+	-- Take first 'count' nobles
+	for i = 1, math.min(count, #available) do
+		table.insert(nobles, available[i])
+	end
+	
+	return nobles
+end
+
+-- Get total cost of a card as a number
+function CardDatabase.GetTotalCost(card)
+	local total = 0
+	for _, amount in pairs(card.cost) do
+		total = total + amount
+	end
+	return total
+end
+
+-- Check if player can afford a card (after bonuses)
+function CardDatabase.CanAffordCard(card, playerEssences, playerBonuses)
+	for essence, requiredAmount in pairs(card.cost) do
+		local owned = playerEssences[essence] or 0
+		local bonus = playerBonuses[essence] or 0
+		local needed = math.max(0, requiredAmount - bonus)
+		
+		if owned < needed then
+			return false
+		end
+	end
+	return true
+end
+
+-- Calculate actual cost after bonuses
+function CardDatabase.GetRealCost(card, playerBonuses)
+	local realCost = {}
+	for essence, amount in pairs(card.cost) do
+		local bonus = playerBonuses[essence] or 0
+		local needed = math.max(0, amount - bonus)
+		if needed > 0 then
+			realCost[essence] = needed
+		end
+	end
+	return realCost
+end
+
+return CardDatabase
